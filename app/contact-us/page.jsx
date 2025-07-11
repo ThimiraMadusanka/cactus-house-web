@@ -1,4 +1,5 @@
-import { Banner, ContactForm, Map } from '@components'
+import { ContactForm, Map } from "@components/contactUs"
+import { Banner } from "@components/shared"
 
 const page = () => {
   return (

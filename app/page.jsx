@@ -1,4 +1,5 @@
-import { AboutUs, Banner, Feed, Hero, WhyChooseUs } from "@components";
+import { AboutUs, Feed, Hero, WhyChooseUs } from "@components/landing";
+import { Banner } from "@components/shared";
 import LandingLayout from "@components/layout/LandingLayout";
 
 export default function Home() {

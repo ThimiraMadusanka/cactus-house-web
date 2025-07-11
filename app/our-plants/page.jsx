@@ -1,4 +1,5 @@
-import { Banner, ProductCard } from "@components"
+import { Banner } from "@components/shared"
+import { ProductCard } from "@components/ui/card"
 
 const page = () => {
   return (
@@ -12,7 +13,7 @@ const page = () => {
       {/* Product Card Section */}
       <section className="w-fit pt-14 pb-20 mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14">
         {/* Product 1 Card */}
-        <ProductCard 
+        <ProductCard
           imageUrl="https://images.unsplash.com/photo-1613372998667-b83ab5bbe081?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           productName="Thanksgiving Cactus"
           productPrice="$147"

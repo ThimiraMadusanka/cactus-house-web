@@ -1,4 +1,4 @@
-import WhyChooseUsCard from "./WhyChooseUsCard";
+import WhyChooseUsCard from "@components/ui/card/WhyChooseUsCard";
 
 import { TbTruckDelivery } from "react-icons/tb";
 import { BsBarChartFill } from "react-icons/bs";

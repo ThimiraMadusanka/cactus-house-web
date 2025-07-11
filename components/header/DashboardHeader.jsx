@@ -5,7 +5,7 @@ import Image from "next/image"
 
 import { useState, useEffect } from "react"
 
-const DashboardNav = () => {
+const DashboardHeader = () => {
   const TOP_OFFSET = 50;
   const [isScroll, setIsScroll] = useState(false)
   const [toggleDropdown, setToggleDropdown] = useState(false)
@@ -99,4 +99,4 @@ const DashboardNav = () => {
   )
 }
 
-export default DashboardNav
+export default DashboardHeader

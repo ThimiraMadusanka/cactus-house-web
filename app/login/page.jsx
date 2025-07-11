@@ -1,10 +1,10 @@
-import DashboardLayout from "@components/layout/DashboardLayout"
+import AuthLayout from "@components/layout/AuthLayout"
 
 const Login = () => {
   return (
-    <DashboardLayout>
+    <AuthLayout>
       <h1>Hello</h1>
-    </DashboardLayout>
+    </AuthLayout>
   )
 }
 

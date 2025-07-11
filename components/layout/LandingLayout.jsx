@@ -1,10 +1,10 @@
 import Footer from '@components/Footer'
-import LandingNav from '@components/nav/LandingNav'
+import { LandingHeader } from '@components/header'
 
 const LandingLayout = ({ children }) => {
   return (
     <div>
-      <LandingNav />
+      <LandingHeader />
       {children}
       <Footer />
     </div>

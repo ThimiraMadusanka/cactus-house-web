@@ -1,9 +1,9 @@
-import DashboardNav from "@components/nav/DashboardNav";
+import { DashboardHeader } from "@components/header"
 
 const DashboardLayout = ({ children }) => {
   return (
     <div>
-      <DashboardNav />
+      <DashboardHeader />
       {children}
     </div>
   )
