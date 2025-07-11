@@ -1,11 +1,11 @@
 import AuthLayout from "@components/layout/AuthLayout"
 
-const Login = () => {
+const ResetPassword = () => {
   return (
     <AuthLayout>
-      <h1>Hello</h1>
+      <h1>ResetPassword</h1>
     </AuthLayout>
   )
 }
 
-export default Login
+export default ResetPassword
