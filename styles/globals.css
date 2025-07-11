@@ -15,6 +15,14 @@
     @apply border rounded-md border-lime-700 bg-lime-700 text-white hover:bg-white hover:text-lime-700 text-center;
 }
 
+.lime_btn_auth {
+    @apply bg-lime-800 text-white font-semibold text-lg rounded-lg hover:bg-lime-700 transition duration-300 shadow-md;
+}
+
+.auth_input {
+    @apply pl-12 pr-4 py-3 w-full rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-lime-500 text-gray-700 text-base shadow-sm transition duration-200;
+}
+
 /* Nav Links styles */
 .nav_link {
     @apply hover:border-b-4 hover:border-lime-700;

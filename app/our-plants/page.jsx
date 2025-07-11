@@ -1,9 +1,10 @@
+import LandingLayout from "@components/layout/LandingLayout"
 import { Banner } from "@components/shared"
 import { ProductCard } from "@components/ui/card"
 
-const page = () => {
+const OurPlants = () => {
   return (
-    <>
+    <LandingLayout>
       {/* Banner Section */}
       <Banner 
         topBanner
@@ -49,8 +50,8 @@ const page = () => {
           productPrice="$195"
         />
       </section>
-    </>
+    </LandingLayout>
   )
 }
 
-export default page
+export default OurPlants

@@ -1,9 +1,10 @@
 import { ContactForm, Map } from "@components/contactUs"
+import LandingLayout from "@components/layout/LandingLayout"
 import { Banner } from "@components/shared"
 
-const page = () => {
+const ContactUs = () => {
   return (
-    <>
+    <LandingLayout>
       {/* Banner Section */}
       <Banner 
         topBanner
@@ -19,8 +20,8 @@ const page = () => {
           <ContactForm />
         </div>
       </section>
-    </>
+    </LandingLayout>
   )
 }
 
-export default page
+export default ContactUs
