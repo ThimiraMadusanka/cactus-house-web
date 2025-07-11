@@ -1,8 +1,9 @@
 import { AboutUs, Banner, Feed, Hero, WhyChooseUs } from "@components";
+import LandingLayout from "@components/layout/LandingLayout";
 
 export default function Home() {
   return (
-    <>
+    <LandingLayout>
       {/* Hero Section */}
       <Hero />
       {/* About Us Section */}
@@ -19,6 +20,6 @@ export default function Home() {
       />
       {/* Instagram Feed Section  */}
       <Feed />
-    </>
+    </LandingLayout>
   );
 }
