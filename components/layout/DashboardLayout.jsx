@@ -1,12 +1,25 @@
-import { DashboardHeader } from "@components/header"
+"use client"
+import { useState } from "react";
+import { DashboardHeader } from "@components/header";
+import SideBar from "@components/sidebar/SideBar";
 
 const DashboardLayout = ({ children }) => {
-  return (
-    <div>
-      <DashboardHeader />
-      {children}
-    </div>
-  )
-}
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
-export default DashboardLayout
+  return (
+    <div className="flex h-screen bg-[#EFFAEC]">
+      {sidebarOpen && <SideBar />}
+
+      <div className="flex flex-col flex-1 overflow-y-auto">
+        <DashboardHeader
+          toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+        />
+        <div className="p-4">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default DashboardLayout;
