@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 
 import { useState, useEffect } from "react"
+import { TbUser } from "@node_modules/react-icons/tb";
 
 const LandingHeader = () => {
   const TOP_OFFSET = 50;
@@ -54,9 +55,16 @@ const LandingHeader = () => {
             </Link>
             <button 
               type="button" 
+              className={`flex justify-center items-center border ${isScroll ? "border-black text-black" : "border-white text-white"} rounded-md gap-2  py-1.5 px-5 text-sm`}
+            >
+              <TbUser size={18} color={isScroll ? "#000" : "#fff"} />
+              Sign In
+            </button>
+            <button 
+              type="button" 
               className="lime_btn py-1.5 px-5 text-sm"
             >
-              Sign Up
+              Create a Account
             </button>
           </div>
         </div>
@@ -86,9 +94,15 @@ const LandingHeader = () => {
                 </Link>
                 <button 
                   type="button" 
+                  className="py-1.5 px-5 text-sm"
+                >
+                  Sign In
+                </button>
+                <button 
+                  type="button" 
                   className="lime_btn py-1.5 px-5 text-sm"
                 >
-                  Sign Up
+                  Create a Account
                 </button>
               </div>
             )}

@@ -1,9 +1,9 @@
-const User = () => {
+const Users = () => {
   return (
     <div>
-      <h1>User</h1>
+      <h1>Users</h1>
     </div>
   )
 }
 
-export default User
+export default Users

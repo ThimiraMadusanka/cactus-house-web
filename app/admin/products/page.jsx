@@ -1,9 +1,9 @@
-const Product = () => {
+const Products = () => {
   return (
     <div>
-      <h1>Product</h1>
+      <h1>Products</h1>
     </div>
   )
 }
 
-export default Product
+export default Products

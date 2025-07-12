@@ -1,14 +1,14 @@
 "use client"
 import { useState } from "react";
 import { DashboardHeader } from "@components/header";
-import SideBar from "@components/sidebar/SideBar";
+import AdminSideBar from "@components/sidebar/AdminSideBar";
 
 const DashboardLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <div className="flex h-screen bg-[#EFFAEC]">
-      {sidebarOpen && <SideBar />}
+      {sidebarOpen && <AdminSideBar />}
 
       <div className="flex flex-col flex-1 overflow-y-auto">
         <DashboardHeader
