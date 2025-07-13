@@ -1,7 +1,8 @@
 import Image from '@node_modules/next/image'
 import { AiFillDashboard } from '@node_modules/react-icons/ai'
 import { BsTelephoneFill } from '@node_modules/react-icons/bs'
-import { FaBoxOpen, FaRobot, FaShoppingCart, FaUser } from '@node_modules/react-icons/fa'
+import { FaBoxOpen, FaShoppingCart, FaUser } from '@node_modules/react-icons/fa'
+import { TbSettingsFilled } from '@node_modules/react-icons/tb'
 
 const AdminSideBar = () => {
   return (
@@ -29,9 +30,9 @@ const AdminSideBar = () => {
                     <FaBoxOpen size={20} />
                     Products
                 </a>
-                <a href="/admin/chat" className="sidenav_items">
-                    <FaRobot size={20} />
-                    Chat Assistent
+                <a href="/admin/settings" className="sidenav_items">
+                    <TbSettingsFilled size={20} />
+                    Settings
                 </a>
                 <a href="/admin/users" className="sidenav_items">
                     <FaUser size={20} />

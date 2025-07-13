@@ -54,3 +54,7 @@
 .sidenav_items {
     @apply gap-3 flex items-center px-4 py-3 text-gray-300 hover:bg-lime-700 hover:text-white rounded-lg transition-colors;
 }
+
+.page_title {
+    font-size: 20px;
+}
