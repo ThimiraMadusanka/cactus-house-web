@@ -12,8 +12,16 @@ export type SignUp = {
     name: string,
     email: string,
     password: string,
-    contactNumber: string,
-    billingAddress: string,
+    contact_number: string,
+    billing_address: string,
+}
+
+export type SignUpInputValidation = {
+     name: string,
+    email: string,
+    password: string,
+    contact_number: string,
+    billing_address: string,
 }
 
 export type ForgetPassword = {
