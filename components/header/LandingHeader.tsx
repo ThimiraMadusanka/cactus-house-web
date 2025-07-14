@@ -5,11 +5,35 @@ import Image from "next/image"
 
 import { useState, useEffect } from "react"
 import { TbUser } from "react-icons/tb";
+import { useRouter } from "next/navigation";
+import { FaUserCircle } from "react-icons/fa";
+import { AuthenticatedUser } from "@/types/auth.types";
 
 const LandingHeader = () => {
   const TOP_OFFSET = 50;
   const [isScroll, setIsScroll] = useState(false)
   const [toggleDropdown, setToggleDropdown] = useState(false)
+  const [token, setToken] = useState<string | null>(null);
+  const [userType, setUserType] = useState<string | null>(null);
+  const [user, setUser] = useState<AuthenticatedUser>({
+    name: "",
+    email: "",
+    contact_number: "",
+    billing_address: "",
+    type: "USER",
+  });
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    const storedUserType = localStorage.getItem("user_type");
+    const storedUser = localStorage.getItem("user");
+    setToken(storedToken);
+    setUserType(storedUserType);
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }  
+}, []);
 
   // Handle Scroll for style changes
   useEffect(() => {
@@ -27,6 +51,16 @@ const LandingHeader = () => {
       window.removeEventListener('scroll', handleScroll);
     }
   }, []);
+
+  const handleProfileButton = () => {
+    if (userType === "ADMIN") {
+      router.push('/admin')
+    } else if (userType === "USER") {
+      router.push('/account')
+    } else {
+      router.push('/')
+    }
+  }
 
   return (
     <nav className={`fixed w-full z-20 top-0 start-0 ${isScroll && "bg-[#EFFAEC]"}`}>
@@ -53,19 +87,36 @@ const LandingHeader = () => {
             <Link href="/contact-us" className={`nav_link ${isScroll ? "text-[#21431E]" : "text-white" }`}>
               Contact Us
             </Link>
-            <button 
-              type="button" 
-              className={`flex justify-center items-center border ${isScroll ? "border-black text-black" : "border-white text-white"} rounded-md gap-2  py-1.5 px-5 text-sm`}
-            >
-              <TbUser size={18} color={isScroll ? "#000" : "#fff"} />
-              Sign In
-            </button>
-            <button 
-              type="button" 
-              className="lime_btn py-1.5 px-5 text-sm"
-            >
-              Create a Account
-            </button>
+            {!token ? (
+              <>
+                <button 
+                  type="button" 
+                  className={`flex justify-center items-center border ${isScroll ? "border-black text-black" : "border-white text-white"} rounded-md gap-2  py-1.5 px-5 text-sm cursor-pointer`}
+                  onClick={() => router.push('/sign-in')}
+                >
+                  <TbUser size={18} color={isScroll ? "#000" : "#fff"} />
+                  Sign In
+                </button>
+                <button 
+                  type="button" 
+                  className="lime_btn py-1.5 px-5 text-sm cursor-pointer"
+                  onClick={() => router.push('/sign-up')}
+                >
+                  Create a Account
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => handleProfileButton()}
+                className={`flex gap-2 items-center ${isScroll ? "text-[#21431E]" : "text-white"} hover:text-gray-400 focus:outline-none cursor-pointer`}
+              >
+                <div className="flex flex-col items-end">
+                  <p style={{ fontSize: "12px" }}>{user.name}</p>
+                  <p style={{ fontSize: "10px" }}>{user.email}</p>
+                </div>
+                <FaUserCircle size={30} />
+              </button>
+            )}
           </div>
         </div>
 
@@ -92,18 +143,35 @@ const LandingHeader = () => {
                 <Link href="/contact-us" className="text-[#21431E]">
                   Contact Us
                 </Link>
-                <button 
-                  type="button" 
-                  className="py-1.5 px-5 text-sm"
-                >
-                  Sign In
-                </button>
-                <button 
-                  type="button" 
-                  className="lime_btn py-1.5 px-5 text-sm"
-                >
-                  Create a Account
-                </button>
+                {!token ? (
+                  <>
+                    <button 
+                      type="button" 
+                      className="py-1.5 px-5 text-sm cursor-pointer"
+                      onClick={() => router.push('/sign-in')}
+                    >
+                      Sign In
+                    </button>
+                    <button 
+                      type="button" 
+                      className="lime_btn py-1.5 px-5 text-sm cursor-pointer"
+                      onClick={() => router.push('/sign-up')}
+                    >
+                      Create a Account
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    onClick={() => handleProfileButton()}
+                    className={`flex gap-2 items-center text-[#21431E] hover:text-gray-400 focus:outline-none cursor-pointer`}
+                  >
+                    <FaUserCircle size={30} />
+                    <div className="flex flex-col items-start">
+                      <p style={{ fontSize: "12px" }}>{user.name}</p>
+                      <p style={{ fontSize: "10px" }}>{user.email}</p>
+                    </div>
+                  </button>
+                )}
               </div>
             )}
           </div>

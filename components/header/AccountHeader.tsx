@@ -1,8 +1,10 @@
 "use client"
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaUserCircle } from "react-icons/fa";
 import { LuMenu } from "react-icons/lu";
+import { AuthenticatedUser } from "@/types/auth.types";
 
 type AccountHeaderProps = {
   toggleSidebar: () => void;
@@ -10,6 +12,21 @@ type AccountHeaderProps = {
 
 const AccountHeader = ({ toggleSidebar }: AccountHeaderProps) => { 
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<AuthenticatedUser>({
+    name: "",
+    email: "",
+    contact_number: "",
+    billing_address: "",
+    type: "USER",
+  });
+  const router = useRouter();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }  
+  }, []);
 
   return (
     <div className="flex items-center justify-between h-16 bg-white border-b border-gray-200">
@@ -30,8 +47,12 @@ const AccountHeader = ({ toggleSidebar }: AccountHeaderProps) => {
         </Link>
         <button
           onClick={() => setOpen(!open)}
-          className="flex items-center text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
+          className="flex gap-2 items-center text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700"
         >
+          <div className="flex flex-col items-end">
+            <p style={{ fontSize: "12px" }}>{user.name}</p>
+            <p style={{ fontSize: "10px" }}>{user.email}</p>
+          </div>
           <FaUserCircle size={30} />
         </button>
       </div>
@@ -41,12 +62,15 @@ const AccountHeader = ({ toggleSidebar }: AccountHeaderProps) => {
           className="absolute right-6 top-10 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
         >
           <div className="py-1">
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            <button
+              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-0"
+              onClick={() => {
+                router.push('/');
+                localStorage.clear();
+              }}
             >
               Sign out
-            </a>
+            </button>
           </div>
         </div>
       )}

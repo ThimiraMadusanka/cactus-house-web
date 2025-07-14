@@ -1,10 +1,10 @@
 import axios from "axios";
 import { CreateOrder, UpdateOrder } from "@/types/order.types";
 
-const MAIN_API_URL = process.env.REACT_APP_API_BASE_URL;
+const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
 
 export const getOrders = async (token: string, page: number, size: number, status?: string) => {
-    const response = await axios.get(`${MAIN_API_URL}/order?page=${page}&size=${size}${status ? "&status=" + status : ""}`,
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/order?page=${page}&size=${size}${status ? "&status=" + status : ""}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -13,7 +13,7 @@ export const getOrders = async (token: string, page: number, size: number, statu
 } 
 
 export const getOrdersByUserId = async (token: string, page: number, size: number, user_id: number) => {
-    const response = await axios.get(`${MAIN_API_URL}/order?page=${page}&size=${size}&user_id=${user_id}`,
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/order?page=${page}&size=${size}&user_id=${user_id}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -22,7 +22,7 @@ export const getOrdersByUserId = async (token: string, page: number, size: numbe
 } 
 
 export const getOrderById = async (token: string, id: number) => {
-    const response = await axios.get(`${MAIN_API_URL}/order/${id}`,
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/order/${id}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -31,7 +31,7 @@ export const getOrderById = async (token: string, id: number) => {
 } 
 
 export const createOrder = async (token: string, request: CreateOrder) => {
-    const response = await axios.post(`${MAIN_API_URL}/order`, request,
+    const response = await axios.post(`${NEXT_PUBLIC_API_URL}/order`, request,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -40,7 +40,7 @@ export const createOrder = async (token: string, request: CreateOrder) => {
 } 
 
 export const updateOrder = async (token: string, id: number, request: UpdateOrder) => {
-    const response = await axios.put(`${MAIN_API_URL}/order/${id}`, request,
+    const response = await axios.put(`${NEXT_PUBLIC_API_URL}/order/${id}`, request,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -49,7 +49,7 @@ export const updateOrder = async (token: string, id: number, request: UpdateOrde
 }
 
 export const orderStatusChange = async (token: string, id: number, status: string) => {
-    const response = await axios.patch(`${MAIN_API_URL}/order/${id}?status=${status}`,
+    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/order/${id}?status=${status}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -58,7 +58,7 @@ export const orderStatusChange = async (token: string, id: number, status: strin
 } 
 
 export const deleteOrder = async (token: string, id: number) => {
-    const response = await axios.delete(`${MAIN_API_URL}/order/${id}`,
+    const response = await axios.delete(`${NEXT_PUBLIC_API_URL}/order/${id}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }

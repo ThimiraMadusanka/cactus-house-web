@@ -1,10 +1,10 @@
 import axios from "axios";
 import { CreateUser, ResetPasswordUser, UpdateUser } from "@/types/user.types";
 
-const MAIN_API_URL = process.env.REACT_APP_API_BASE_URL;
+const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
 
 export const getUsers = async (token: string, page: number, size: number, status?: string) => {
-    const response = await axios.get(`${MAIN_API_URL}/user?page=${page}&size=${size}${status ? "&status=" + status : ""}`,
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/user?page=${page}&size=${size}${status ? "&status=" + status : ""}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -13,7 +13,7 @@ export const getUsers = async (token: string, page: number, size: number, status
 } 
 
 export const getUserById = async (token: string, id: number) => {
-    const response = await axios.get(`${MAIN_API_URL}/user/${id}`,
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/user/${id}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -22,7 +22,7 @@ export const getUserById = async (token: string, id: number) => {
 } 
 
 export const createUser = async (token: string, request: CreateUser) => {
-    const response = await axios.post(`${MAIN_API_URL}/user`, request,
+    const response = await axios.post(`${NEXT_PUBLIC_API_URL}/user`, request,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -31,7 +31,7 @@ export const createUser = async (token: string, request: CreateUser) => {
 } 
 
 export const updateUser = async (token: string, id: number, request: UpdateUser) => {
-    const response = await axios.put(`${MAIN_API_URL}/user/${id}`, request,
+    const response = await axios.put(`${NEXT_PUBLIC_API_URL}/user/${id}`, request,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -40,7 +40,7 @@ export const updateUser = async (token: string, id: number, request: UpdateUser)
 } 
 
 export const resetPasswordUser = async (token: string, id: number, request: ResetPasswordUser) => {
-    const response = await axios.patch(`${MAIN_API_URL}/user/password/${id}`, request,
+    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/user/password/${id}`, request,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -49,7 +49,7 @@ export const resetPasswordUser = async (token: string, id: number, request: Rese
 }
 
 export const userStatusChange = async (token: string, id: number, status: string) => {
-    const response = await axios.patch(`${MAIN_API_URL}/user/${id}?status=${status}`,
+    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/user/${id}?status=${status}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
@@ -58,7 +58,7 @@ export const userStatusChange = async (token: string, id: number, status: string
 } 
 
 export const deleteUser = async (token: string, id: number) => {
-    const response = await axios.delete(`${MAIN_API_URL}/user/${id}`,
+    const response = await axios.delete(`${NEXT_PUBLIC_API_URL}/user/${id}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
