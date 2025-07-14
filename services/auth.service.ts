@@ -19,7 +19,11 @@ export const forgetPassword = async (request: ForgetPassword) => {
     return response;
 }
 
-export const resetPassword = async (request: ResetPassword) => {
-    const response = await axios.post(`${NEXT_PUBLIC_API_URL}/reset_password`, request);
+export const resetPassword = async (token: string, request: ResetPassword) => {
+    const response = await axios.post(`${NEXT_PUBLIC_API_URL}/reset_password`, request,
+        {
+            headers: { Authorization: `Bearer ${token}` },
+        }
+    );
     return response;
 }

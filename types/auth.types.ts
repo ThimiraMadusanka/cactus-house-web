@@ -17,7 +17,7 @@ export type SignUp = {
 }
 
 export type SignUpInputValidation = {
-     name: string,
+    name: string,
     email: string,
     password: string,
     contact_number: string,
@@ -28,7 +28,16 @@ export type ForgetPassword = {
     email: string,
 }
 
+export type ForgetPasswordInputValidation = {
+    email: string
+}
+
 export type ResetPassword = {
+    new_password: string,
+    confirm_password: string,
+}
+
+export type ResetPasswordInputValidation = {
     new_password: string,
     confirm_password: string,
 }

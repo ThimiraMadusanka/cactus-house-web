@@ -1,8 +1,67 @@
+"use client"
+import React, { useState } from 'react';
 import AuthLayout from "@/components/layout/AuthLayout"
 import { FaEnvelope } from "react-icons/fa"
-
+import { useRouter } from 'next/navigation';
+import { ForgetPasswordInputValidation } from '@/types/auth.types';
+import { toast } from 'react-toastify';
+import { forgetPassword } from '@/services/auth.service';
 
 const ForgetPassword = () => {
+  const [formData, setFormData] = useState({
+    email: ""
+  });
+  const [formValidationErrors, setFormValidationErrors] = useState<Partial<ForgetPasswordInputValidation>>({});
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  // Input field validation method
+  const validate = () => {
+    const inputErrors: Partial<ForgetPasswordInputValidation> = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(formData.email === "") {
+      inputErrors.email = "Email is required."
+    } else {
+      if (!emailRegex.test(formData.email)) {
+        inputErrors.email = "Invalid email."
+      }
+    }
+    return inputErrors;
+  }
+
+  // Method for input onChange 
+  const handelOnChange = (e: any) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }
+
+  // Form Submit
+  const handelSubmit = async () => {
+    try {
+      setLoading(true);
+      const newErrors = validate();
+      if(Object.keys(newErrors).length === 0) {
+        const response = await forgetPassword(formData);
+        if (response.status === 201) {
+          router.push(`/reset-password?token=${response.data.access_token}`);
+        } else {
+          toast.error("Something went wrong!")
+        }
+      } else {
+        setFormValidationErrors(newErrors);
+      }
+    } catch (error: any) {
+      setLoading(false);
+      console.log("Sign In error: ", error);
+      toast.error(error.response.data.message)
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <AuthLayout>
       <div className="min-h-screen flex items-center justify-center bg-[#EFFAEC]">
@@ -23,16 +82,22 @@ const ForgetPassword = () => {
               </p>
             </div>
             <form className="space-y-6">
-              <div className="relative">
-                <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 opacity-70" />
-                <input
-                  type="email"
-                  placeholder="Email"
-                  className="auth_input"
-                />
+              <div>
+                <div className="relative">
+                  <FaEnvelope className="absolute left-4 top-1/2 transform -translate-y-1/2 opacity-70" />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    className="auth_input"
+                    value={formData.email}
+                    onChange={(e) => handelOnChange(e)}
+                  />
+                </div>
+                {formValidationErrors.email && (<p className="text-red-700 mt-2">{formValidationErrors.email}</p>)}
               </div>
-              <button className="w-full py-3 lime_btn_auth">
-                Reset Password
+              <button disabled={loading} type="button" className="w-full py-3 lime_btn_auth cursor-pointer" onClick={() => handelSubmit()}>
+                {loading ? "..." : "Reset Password"}
               </button>
             </form>
           </div>

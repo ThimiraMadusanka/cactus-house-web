@@ -121,7 +121,7 @@ const SignIn = () => {
                   <a href="/forget-password" className="text-lime-700 font-semibold hover:underline ml-1">Forget Password?</a>
                 </p>
               </div>
-              <button disabled={loading} type="button" className="w-full py-3 lime_btn_auth" onClick={() => handelSubmit()}>
+              <button disabled={loading} type="button" className="w-full py-3 lime_btn_auth cursor-pointer" onClick={() => handelSubmit()}>
                 {loading ? "..." : "Sign In"}
               </button>
             </form>
