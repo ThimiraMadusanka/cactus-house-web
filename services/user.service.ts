@@ -9,7 +9,7 @@ export const getUsers = async (token: string, page: number, size: number, status
             headers: { Authorization: `Bearer ${token}` },
         }
     );
-    return response.data;
+    return response;
 } 
 
 export const getUserById = async (token: string, id: number) => {
@@ -49,7 +49,7 @@ export const resetPasswordUser = async (token: string, id: number, request: Rese
 }
 
 export const userStatusChange = async (token: string, id: number, status: string) => {
-    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/user/${id}?status=${status}`,
+    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/user/${id}?status=${status}`, {},
         {
             headers: { Authorization: `Bearer ${token}` },
         }

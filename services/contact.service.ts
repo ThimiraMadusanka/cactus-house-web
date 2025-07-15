@@ -27,7 +27,7 @@ export const createContact = async (request: CreateContact) => {
 }
 
 export const contactStatusChange = async (token: string, id: number, status: string) => {
-    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/contact/${id}?status=${status}`,
+    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/contact/${id}?status=${status}`, {},
         {
             headers: { Authorization: `Bearer ${token}` },
         }
