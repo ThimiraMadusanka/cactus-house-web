@@ -13,3 +13,9 @@ export type ContactTableData = {
     created_at: string;
     updated_at: string;
 };
+
+export type CreateContactInputValidation = {
+    name: string;
+    email: string;
+    message: string;
+}
