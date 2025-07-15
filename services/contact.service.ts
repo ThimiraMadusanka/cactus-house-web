@@ -9,7 +9,7 @@ export const getContacts = async (token: string, page: number, size: number, sta
             headers: { Authorization: `Bearer ${token}` },
         }
     );
-    return response.data;
+    return response;
 }
 
 export const getContactById = async (token: string, id: number) => {
