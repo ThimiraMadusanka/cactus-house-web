@@ -1,8 +1,8 @@
-export type CreateChatResource = {
+export type CreateOrUpdateChatResource = {
     description: string,
 }
 
-export type UpdateChatResource = {
+export type CreateOrUpdateChatResourceInputValidation = {
     description: string,
 }
 

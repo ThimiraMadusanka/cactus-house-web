@@ -18,7 +18,7 @@ export const getUserById = async (token: string, id: number) => {
             headers: { Authorization: `Bearer ${token}` },
         }
     );
-    return response.data;
+    return response;
 } 
 
 export const createUser = async (token: string, request: CreateUser) => {
