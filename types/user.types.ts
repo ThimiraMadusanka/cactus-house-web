@@ -6,7 +6,21 @@ export type CreateUser = {
     billing_address: string,
 }
 
+export type CreateUserInputValidation = {
+    name: string,
+    email: string,
+    password: string,
+    contact_number: string,
+    billing_address: string,
+}
+
 export type UpdateUser = {
+    name: string,
+    contact_number: string,
+    billing_address: string,
+}
+
+export type UpdateUserInputValidation = {
     name: string,
     contact_number: string,
     billing_address: string,

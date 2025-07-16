@@ -7,6 +7,8 @@ import { deleteUser, getUsers, resetPasswordUser, userStatusChange } from "@/ser
 import { UserTableData } from "@/types/user.types";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import Swal from "sweetalert2";
+import UserUpdateModal from "@/components/modal/UserUpdateModal";
+import UserAddModal from "@/components/modal/UserAddModal";
 
 const Users = () => {
   const [data, setData] = useState<UserTableData[]>([]);
@@ -17,6 +19,9 @@ const Users = () => {
   const [token, setToken] = useState<string>("");
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
   const [isAddUpdateOrDelete, setIsAddUpdateOrDelete] = useState<boolean>(false);
+  const [openAddUserModal, setOpenAddUserModal] = useState<boolean>(false);
+  const [openUpdateUserModal, setOpenUpdateUserModal] = useState<boolean>(false);
+  const [selectedUser, setSelectedUser] = useState<UserTableData | null>(null);
 
   const pageSize = 10;
   const router = useRouter();
@@ -279,9 +284,10 @@ const Users = () => {
           <h1 className="font-extrabold page_title">Users</h1>
           <button 
             type="button" 
-            className="lime_btn py-1.5 px-5 text-sm"
+            className="border rounded-md text-white bg-lime-800 hover:bg-lime-600 py-1.5 px-5 text-sm"
+            onClick={() => setOpenAddUserModal(!openAddUserModal)}
           >
-            Add New
+            Add User
           </button>
         </div>
         <div className="pt-5">
@@ -352,6 +358,11 @@ const Users = () => {
                             <div className="py-1 border-b border-gray-300">
                               <button
                                 className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => {
+                                  setOpenUpdateUserModal(!openUpdateUserModal);
+                                  setOpenDropdownIndex(null);
+                                  setSelectedUser(user);
+                                }}
                               >
                                 Update
                               </button>
@@ -398,6 +409,29 @@ const Users = () => {
           </div>
         </div>
       </div>
+
+      {/* Add user modal */}
+      {openAddUserModal && (
+        <UserAddModal 
+          token={token}
+          isAddUpdateOrDelete={isAddUpdateOrDelete}
+          setIsAddUpdateOrDelete={setIsAddUpdateOrDelete}
+          openAddUserModal={openAddUserModal}
+          setOpenAddUserModal={setOpenAddUserModal}
+        />
+      )}
+
+      {/* Update user modal */}
+      {openUpdateUserModal && (
+        <UserUpdateModal
+          token={token}
+          selectedUser={selectedUser}
+          isAddUpdateOrDelete={isAddUpdateOrDelete}
+          setIsAddUpdateOrDelete={setIsAddUpdateOrDelete} 
+          openUpdateUserModal={openUpdateUserModal}
+          setOpenUpdateUserModal={setOpenUpdateUserModal}
+        />
+      )}
     </div>
   )
 }
