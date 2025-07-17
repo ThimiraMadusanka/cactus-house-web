@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import "react-toastify/dist/ReactToastify.css";
 import { Tauri } from 'next/font/google'
 import { ToastContainer } from 'react-toastify';
+import ClientSession from '@/components/session/ClientSession';
 
 export const metadata = {
   title: "Cactus House",
@@ -22,8 +23,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body>
         <main className={tauri.className}>
-          {children}
-          <ToastContainer position="top-right" />
+          <ClientSession>
+            {children}
+            <ToastContainer position="top-right" />
+          </ClientSession>
         </main>
       </body>
     </html>

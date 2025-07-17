@@ -9,3 +9,12 @@ export type CreateOrUpdateChatResourceInputValidation = {
 export type Message = {
      message_content: string,
 }
+
+export type GetMessages = {
+    id: number,
+    message_content: string,
+    role: string,
+    session_id: string,
+    created_at: string,
+    updated_at: string,
+}

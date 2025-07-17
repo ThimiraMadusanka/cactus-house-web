@@ -21,12 +21,12 @@ export const createOrUpdateChatResource = async (token: string, id: number, requ
     return response;
 }
 
-export const getMessages = async () => {
-    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/chat/messages`);
-    return response.data;
+export const getMessages = async (session_id: string) => {
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/chat/messages?session_id=${session_id}`);
+    return response;
 }
 
-export const message = async (request: Message) => {
-    const response = await axios.post(`${NEXT_PUBLIC_API_URL}/chat/message`, request);
+export const message = async (session_id: string, request: Message) => {
+    const response = await axios.post(`${NEXT_PUBLIC_API_URL}/chat/message?session_id=${session_id}`, request);
     return response;
 }
