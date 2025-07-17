@@ -3,14 +3,14 @@ import { CreateProduct, UpdateProduct } from "@/types/product.types";
 
 const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
 
-export const getProducts = async (page: number, size: number, status?: string, tag?: string, name?: string, price?: string) => {
+export const getProducts = async (page: number, size: number, status?: string, name?: string, tag?: string, price?: string) => {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/products?page=${page}&size=${size}${status ? "&status=" + status : ""}${tag ? "&tag=" + tag : ""}${name ? "&name=" + name : ""}${price ? "&price=" + price : ""}`);
-    return response.data;
+    return response;
 } 
 
 export const getProductById = async (id: number) => {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/products/${id}`);
-    return response.data;
+    return response;
 } 
 
 export const createProduct = async (token: string, request: CreateProduct) => {

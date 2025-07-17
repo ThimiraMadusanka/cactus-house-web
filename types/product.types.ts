@@ -19,3 +19,16 @@ export type UpdateProduct = {
     content_type: string,
     tags: string[],
 }
+
+export type ProductData = {
+  id: number;
+  name: string;
+  description: string;
+  image_url: string;
+  price: string;
+  quantity: number;
+  status: string;
+  tags: string[];
+  created_at: string;
+  updated_at: string;
+};
