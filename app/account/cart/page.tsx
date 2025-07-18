@@ -111,7 +111,7 @@ const Cart = () => {
                 {/* For loading data */}
                 {isLoading && (
                   <tr className="bg-white transition-all duration-500 hover:bg-gray-50">
-                    <td colSpan={7} className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
+                    <td colSpan={5} className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
                       <div className="spinner-border text-primary" role="status">
                         <span className="visually-hidden">Loading...</span>
                       </div>
@@ -122,7 +122,7 @@ const Cart = () => {
                 {/* For Error */}
                 {isError && (
                 <tr className="bg-white transition-all duration-500 hover:bg-gray-50">
-                  <td colSpan={7} className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
+                  <td colSpan={5} className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
                     <div className="spinner-border text-primary" role="status">
                       <span className="visually-hidden">Something went wrong!</span>
                     </div>
@@ -133,7 +133,7 @@ const Cart = () => {
               {!isLoading && !isError && data.length === 0 ? (
                 // Inform when there is no data
                 <tr className="bg-white transition-all duration-500 hover:bg-gray-50">
-                  <td colSpan={7} className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
+                  <td colSpan={5} className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">
                     <h5 className="fw-bold mb-0">Add items to cart.</h5>
                   </td>
                 </tr>

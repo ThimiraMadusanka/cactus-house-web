@@ -9,16 +9,16 @@ export const getOrders = async (token: string, page: number, size: number, statu
             headers: { Authorization: `Bearer ${token}` },
         }
     );
-    return response.data;
+    return response;
 } 
 
 export const getOrdersByUserId = async (token: string, page: number, size: number, user_id: number) => {
-    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/order?page=${page}&size=${size}&user_id=${user_id}`,
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/order/user?page=${page}&size=${size}&user_id=${user_id}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
     );
-    return response.data;
+    return response;
 } 
 
 export const getOrderById = async (token: string, id: number) => {
