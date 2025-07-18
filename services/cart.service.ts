@@ -3,13 +3,13 @@ import axios from "axios";
 
 const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
 
-export const getAllCartItemsByUserId = async (token: string, page: number, size: number, user_id: number) => {
-    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/cart/all?page=${page}&size=${size}&user_id=${user_id}`,
+export const getAllCartItemsByUserId = async (token: string, user_id: number) => {
+    const response = await axios.get(`${NEXT_PUBLIC_API_URL}/cart/all?user_id=${user_id}`,
         {
             headers: { Authorization: `Bearer ${token}` },
         }
     );
-    return response.data;
+    return response;
 }
 
 export const addToCart = async (token: string, request: AddToCart) => {

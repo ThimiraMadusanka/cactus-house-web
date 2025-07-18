@@ -1,6 +1,7 @@
 "use client"
 import Image from "next/image"
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 type ProductCardProps = {
   imageUrl: string;
@@ -10,7 +11,15 @@ type ProductCardProps = {
 };
 
 const ProductCard = ({ imageUrl, productName, productPrice, id }: ProductCardProps) => {
+    const [token, setToken] = useState<string | null>(null);
     const router = useRouter();
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem("token");
+        if (storedToken) {
+            setToken(storedToken);
+        }
+    }, [])
 
     return (
         <div className="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
@@ -31,12 +40,23 @@ const ProductCard = ({ imageUrl, productName, productPrice, id }: ProductCardPro
                 </div>
             </div>
             <div className="w-full pt-0 p-3">
-                <button 
-                    type="button"
-                    className="bg-lime-800 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded text-sm w-full cursor-pointer"
-                >
-                    Add to Cart
-                </button>
+                {token !== null ? (
+                    <button 
+                        type="button"
+                        onClick={() => router.push(`/our-plants/${id}`)}
+                        className="bg-lime-800 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded text-sm w-full cursor-pointer"
+                    >
+                        Add to Cart
+                    </button>
+                ) : (
+                    <button 
+                        type="button"
+                        onClick={() => router.push('/sign-in')}
+                        className="bg-lime-800 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded text-sm w-full cursor-pointer"
+                    >
+                        Sign In
+                    </button>
+                )}
             </div>
         </div>
     )

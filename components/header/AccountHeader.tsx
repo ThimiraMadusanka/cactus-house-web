@@ -63,7 +63,7 @@ const AccountHeader = ({ toggleSidebar }: AccountHeaderProps) => {
         >
           <div className="py-1">
             <button
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-0"
+              className="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-0"
               onClick={() => {
                 router.push('/');
                 localStorage.clear();

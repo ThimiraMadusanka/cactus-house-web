@@ -81,7 +81,7 @@ const Account = () => {
               icon={<FaShoppingCart size={20} color="#fff" />}
             />
           </div>
-          <div className="bg-white mx-9 mt-4 mb-9 p-10 rounded-lg shadow-md h-[400px]">
+          <div className="bg-white mx-9 mt-4 mb-0 p-10 rounded-lg shadow-md h-[400px]">
             <BarChart labelSet={summaryData.weekly_summary.days} dataSet={summaryData.weekly_summary.count} />
           </div>
         </>

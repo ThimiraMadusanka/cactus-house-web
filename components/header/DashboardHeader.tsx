@@ -52,16 +52,15 @@ const DashboardHeader = ({toggleSidebar}: DashboardHeaderProps) => {
           className="absolute right-6 top-10 mt-2 w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
         >
           <div className="py-1">
-            <a
-              href="#"
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            <button
+              className="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-0"
               onClick={() => {
                 router.push('/');
                 localStorage.clear();
               }}
             >
               Sign out
-            </a>
+            </button>
           </div>
         </div>
       )}

@@ -7,11 +7,15 @@ import { ProductData } from '@/types/product.types'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { DotLoader } from 'react-spinners'
+import { addToCart } from '@/services/cart.service'
+import { toast } from 'react-toastify'
 
 const ViewProuducts = ({ params }: { params: Promise<{ id: string }> }) => {
   const [data, setData] = useState<ProductData | null>(null);
   const [isLoading, setIsLoading] = useState<Boolean>(false);
   const [quantity, setQuantity] = useState(1);
+  const [token, setToken] = useState<string | null>(null);
+  const [userId, setUserId] = useState<number>(0);
 
   const { id } = React.use(params);
   const router = useRouter();
@@ -37,12 +41,48 @@ const ViewProuducts = ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   useEffect(() => {
+    // get token
+    const storedToken = localStorage.getItem("token");
+    const storedUser = localStorage.getItem("user");
+    if (storedToken && storedUser) {
+      const user = JSON.parse(storedUser);
+      setToken(storedToken);
+      setUserId(user.id);
+    }
+
+    // check id existence
     if(id) {
       fetchData(Number(id))
     } else {
       router.push('/our-plants')
     }
   }, [])
+
+  const addItemsOnCart = async () => {
+    try {
+      if(token && userId) {
+        const data = {
+          user_rid: userId,
+          product_rid: Number(id),
+          amount: quantity.toString(),
+        }
+        const response = await addToCart(token, data);
+        if (response.status === 201) {
+          // success toast for remove item success
+          toast.success("Item successfully add to cart.");
+        } else {
+          // error toast for error while remove item
+          toast.error("Something went wrong. Please check and try again.")
+        }
+      } else {
+        //No user found
+        toast.error("User not found");
+      }
+    } catch (error: any) {
+      // error toast for error
+      toast.error(`${error.response.data ? error.response.data : "Something went wrong. Please check and try again."}`)
+    }
+  }
 
   return (
     <LandingLayout>
@@ -93,12 +133,23 @@ const ViewProuducts = ({ params }: { params: Promise<{ id: string }> }) => {
                   </button>
                 </div>
               </div>
-              <button 
-                type="button"
-                className="bg-lime-800 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded text-sm"
-              >
-                Add to Cart
-              </button>
+              {token !== null ? (
+                <button 
+                  type="button"
+                  onClick={() => addItemsOnCart()}
+                  className="bg-lime-800 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded text-sm cursor-pointer"
+                >
+                  Add to Cart
+                </button>
+              ) : (
+                <button 
+                  type="button"
+                  onClick={() => router.push('/sign-in')}
+                  className="bg-lime-800 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded text-sm cursor-pointer"
+                >
+                  Sign In
+                </button>
+              )}
             </div>
           </div>
         </div>

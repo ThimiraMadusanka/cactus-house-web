@@ -27,7 +27,7 @@ const Users = () => {
   const router = useRouter();
 
   // fetch data
-  const fetchContacts = async (token: string, currentPage: number) => {
+  const fetchUsers = async (token: string, currentPage: number) => {
     try {
       setIsLoading(true);
       const response = await getUsers(token, currentPage, pageSize);
@@ -49,7 +49,7 @@ const Users = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      fetchContacts(token, currentPage);
+      fetchUsers(token, currentPage);
       setIsError(false);
       setData([]);
       setToken(token);
