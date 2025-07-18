@@ -3,7 +3,7 @@ import React, { JSX } from 'react';
 
 type DashboardCardProps = {
     title: string,
-    number: string,
+    number: number,
     iconBackgroundColor: string,
     numberColor: string,
     icon: JSX.Element; 
