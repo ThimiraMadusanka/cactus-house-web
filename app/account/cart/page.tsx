@@ -1,7 +1,9 @@
 "use client"
 
+import CheckoutModal from "@/components/modal/CheckoutModal";
 import { getAllCartItemsByUserId, removeFromCart } from "@/services/cart.service";
 import { CartTableData } from "@/types/cart.types";
+import { CartProduct } from "@/types/order.types";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,7 +17,9 @@ const Cart = () => {
   const [netTotal, setNetTotal] = useState<number>(0);
   const [token, setToken] = useState<string>("");
   const [userId, setUserId] = useState<number>(0);
-  const [isRemoved, setIsRemoved] = useState<boolean>(false);
+  const [isChanged, setIsChanged] = useState<boolean>(false);
+  const [openCheckoutModal, setOpenCheckoutModal] = useState<boolean>(false);
+  const [productList, setProductList] = useState<CartProduct[]>([]);
 
   const router = useRouter();
 
@@ -28,9 +32,19 @@ const Cart = () => {
         const cartData = response.data;
         setData(cartData);
         let total: number = 0;
+        let list: any[] = [];
         cartData.forEach((item: CartTableData) => {
+          list.push({
+            id: item.product_id,
+            cart_id: item.id,
+            name: item.product_name,
+            image: item.product_image_url,
+            price: item.product_price,
+            amount: item.amount
+          });
           total = total + (Number(item.amount) * (Number(item.product_price)))
         });
+        setProductList(list);
         setNetTotal(total);
       } else {
         setIsError(true);
@@ -58,7 +72,7 @@ const Cart = () => {
       router.push('/');
       toast.error("Someting went wrong!");
     }
-  }, [isRemoved]);
+  }, [isChanged]);
 
   const removeItemsOnCart = async (id: number) => {
     try {
@@ -67,7 +81,7 @@ const Cart = () => {
         if (response.status === 204) {
           // success toast for remove item success
           toast.success("Item successfully removed");
-          setIsRemoved(!isRemoved);
+          setIsChanged(!isChanged);
         } else {
           // error toast for error while remove item
           toast.error("Something went wrong. Please check and try again.")
@@ -173,6 +187,9 @@ const Cart = () => {
                     <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
                       <button 
                         type="button"
+                        onClick={() => {
+                          setOpenCheckoutModal(!openCheckoutModal);
+                        }}
                         className="bg-lime-800 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded text-sm cursor-pointer"
                       >
                         Checkout
@@ -186,6 +203,20 @@ const Cart = () => {
           </div>
         </div>
       </div>
+
+      {/* Open Checkout Modal */}
+      {openCheckoutModal && (
+        <CheckoutModal 
+          token={token}
+          userId={userId}
+          productList={productList}
+          totalAmount={netTotal}
+          isChanged={isChanged}
+          setIsChanged={setIsChanged}
+          openCheckoutModal={openCheckoutModal}
+          setOpenCheckoutModal={setOpenCheckoutModal}
+        />
+      )}
     </div>
   )
 }

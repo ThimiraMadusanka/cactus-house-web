@@ -7,13 +7,18 @@ export type CreateOrder = {
 }
 
 export type UpdateOrder = {
+    contact_number: string,
+    shipping_address: string,
+}
+
+export type OrderFormInputValidation = {
     product_list: any,
     total_amount: string,
     contact_number: string,
     shipping_address: string,
 }
 
-type CartProduct = {
+export type CartProduct = {
   id: number;
   cart_id: number;
   name: string;
@@ -24,6 +29,7 @@ type CartProduct = {
 
 export type AdminOrderTableData = {
     id: number;
+    order_id: string;
     user_rid: number;
     product_list: CartProduct[];
     total_amount: string;
@@ -46,6 +52,7 @@ export type AdminOrderTableData = {
 
 export type OrderTableData = {
     id: number;
+    order_id: string;
     user_rid: number;
     product_list: CartProduct[];
     total_amount: string;

@@ -4,8 +4,9 @@ import Pagination from "@/components/ui/pagination/Pagination"
 import { AdminOrderTableData } from "@/types/order.types";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { getOrders } from "@/services/order.service";
+import { getOrders, orderStatusChange } from "@/services/order.service";
 import { BiDotsVerticalRounded } from "react-icons/bi";
+import Swal from "sweetalert2";
 
 const Orders = () => {
   const [data, setData] = useState<AdminOrderTableData[]>([]);
@@ -53,6 +54,83 @@ const Orders = () => {
     }
   }, [currentPage, isUpdate]);
 
+  // handle status change
+  const handleStatusChange = (id: number, orderId: string) => {
+    setOpenDropdownIndex(null);
+    Swal.fire({
+      title: `Change status for this ${orderId}`,
+      input: "select",
+      inputOptions: {
+        PENDING: "Pending",
+        DELIVERED: "Delivered",
+        REJECTED: "Rejected"
+      },
+      inputPlaceholder: "Select a status",
+      confirmButtonText: "Ok",
+      customClass: {
+        confirmButton: "p-1 px-2 bg-green-600 rounded text-white me-2",
+        cancelButton: "p-1 px-2 bg-gray-600 rounded text-white",
+        title: "text-capitalize pb-3",
+      },
+      buttonsStyling: false,
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        statusChange(id, result.value);
+      }
+    });
+  }
+  
+    // status change function
+    const statusChange = async (id: number, status: string) => {
+      try {
+        const response = await orderStatusChange(token, id, status);
+  
+        if (response.status === 200) {
+          // success popup for status change order success
+          Swal.fire({
+            title: "Success..!",
+            text: "Status changed successfully!",
+            icon: "success",
+            confirmButtonText: "Ok",
+            customClass: {
+              confirmButton: "p-1 px-2 bg-green-600 rounded text-white",
+            },
+            buttonsStyling: false,
+          });
+          setIsUpdate(!isUpdate);
+        } else {
+          // error popup for error while status change
+          Swal.fire({
+            title: "Ooops..!",
+            text: "Something went wrong. Please check and try again.",
+            icon: "error",
+            confirmButtonText: "Ok",
+            customClass: {
+              confirmButton: "p-1 px-2 bg-red-600 rounded text-white",
+            },
+            buttonsStyling: false,
+          });
+        }
+      } catch (error: any) {
+        // error popup for error
+        Swal.fire({
+          title: "Ooops..!",
+          text: `${
+            error.response.statusText
+              ? error.response.statusText
+              : "Something went wrong. Please check and try again."
+          }`,
+          icon: "error",
+          confirmButtonText: "Ok",
+          customClass: {
+            confirmButton: "p-1 px-2 bg-red-600 rounded text-white",
+          },
+          buttonsStyling: false,
+        });
+      }
+    };
+
   // status color handle method
   const handleStatusTextColor = (status: string) => {
     if (status === "PENDING") {
@@ -78,6 +156,7 @@ const Orders = () => {
               <thead>
                 <tr className="bg-gray-50">
                   <th scope="col" className="p-5 text-center text-sm leading-6 font-semibold text-gray-900 capitalize rounded-t-xl"> Index </th>
+                  <th scope="col" className="p-5 text-center text-sm leading-6 font-semibold text-gray-900 capitalize"> Order Id </th>
                   <th scope="col" className="p-5 text-center text-sm leading-6 font-semibold text-gray-900 capitalize"> User </th>
                   <th scope="col" className="p-5 text-center text-sm leading-6 font-semibold text-gray-900 capitalize"> Items Count </th>
                   <th scope="col" className="p-5 text-center text-sm leading-6 font-semibold text-gray-900 capitalize"> Total Amount </th>
@@ -120,9 +199,10 @@ const Orders = () => {
                   return (
                     <tr key={1} className="bg-white transition-all duration-500 hover:bg-gray-50">
                       <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{(currentPage - 1) * pageSize + i + 1}</td>
+                      <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{order.order_id}</td>
                       <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{order.user_name}</td>
                       <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{order.product_list.length}</td>
-                      <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{order.total_amount}</td>
+                      <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">Rs. {order.total_amount}</td>
                       <td className={`p-5 text-center whitespace-nowrap text-sm leading-6 font-medium ${handleStatusTextColor(order.status)}`}>{order.status}</td>
                       <td className="p-5">
                         <div className="flex justify-center items-center">
@@ -138,6 +218,7 @@ const Orders = () => {
                             <div className="py-1 border-b border-gray-300">
                               <button
                                 className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => router.push(`/admin/orders/${order.id}`)}
                               >
                                 View
                               </button>
@@ -145,6 +226,7 @@ const Orders = () => {
                             <div className="py-1 border-b border-gray-300">
                               <button
                                 className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => handleStatusChange(order.id, order.order_id)}
                               >
                                 Change Status
                               </button>

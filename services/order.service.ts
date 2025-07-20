@@ -27,7 +27,7 @@ export const getOrderById = async (token: string, id: number) => {
             headers: { Authorization: `Bearer ${token}` },
         }
     );
-    return response.data;
+    return response;
 } 
 
 export const createOrder = async (token: string, request: CreateOrder) => {
