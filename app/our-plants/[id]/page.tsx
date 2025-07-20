@@ -29,7 +29,6 @@ const ViewProuducts = ({ params }: { params: Promise<{ id: string }> }) => {
       const response = await getProductById(id);
       if (response.status === 200) {
         setData(response.data);
-        setQuantity(response.data.quantity);
       }
     } catch (error: any) {
       setIsLoading(false);
@@ -70,6 +69,7 @@ const ViewProuducts = ({ params }: { params: Promise<{ id: string }> }) => {
         if (response.status === 201) {
           // success toast for remove item success
           toast.success("Item successfully add to cart.");
+          router.push('/our-plants');
         } else {
           // error toast for error while remove item
           toast.error("Something went wrong. Please check and try again.")

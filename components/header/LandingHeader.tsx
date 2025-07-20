@@ -6,8 +6,9 @@ import Image from "next/image"
 import { useState, useEffect } from "react"
 import { TbUser } from "react-icons/tb";
 import { useRouter } from "next/navigation";
-import { FaUserCircle } from "react-icons/fa";
+import { FaShoppingCart, FaUserCircle } from "react-icons/fa";
 import { AuthenticatedUser } from "@/types/auth.types";
+import { getAllCartItemsByUserId } from "@/services/cart.service";
 
 const LandingHeader = () => {
   const TOP_OFFSET = 50;
@@ -22,7 +23,22 @@ const LandingHeader = () => {
     billing_address: "",
     type: "USER",
   });
+  const [cartCount, setCartCount] = useState<number>(0);
   const router = useRouter();
+
+   // fetch data
+  const fetchCartData = async (token: string, userRid: number) => {
+    try {
+      const response = await getAllCartItemsByUserId(token, userRid);
+      if (response.status === 200) {
+        const cartData = response.data;
+        console.log("DDDDDD", cartData)
+        setCartCount(cartData.length);
+      } 
+    } catch (error) {
+      console.log("Err", error);
+    } 
+  }
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -30,8 +46,12 @@ const LandingHeader = () => {
     const storedUser = localStorage.getItem("user");
     setToken(storedToken);
     setUserType(storedUserType);
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    if (storedUser && storedToken && storedUserType) {
+      const user = JSON.parse(storedUser);
+      setUser(user);
+      if (storedUserType === "USER") {
+        fetchCartData(storedToken, user.id);
+      }
     }  
 }, []);
 
@@ -106,16 +126,31 @@ const LandingHeader = () => {
                 </button>
               </>
             ) : (
-              <button
-                onClick={() => handleProfileButton()}
-                className={`flex gap-2 items-center ${isScroll ? "text-[#21431E]" : "text-white"} hover:text-gray-400 focus:outline-none cursor-pointer`}
-              >
-                <div className="flex flex-col items-end">
-                  <p style={{ fontSize: "12px" }}>{user.name}</p>
-                  <p style={{ fontSize: "10px" }}>{user.email}</p>
-                </div>
-                <FaUserCircle size={30} />
-              </button>
+              <>
+                {userType === "USER" && (
+                  <button
+                    onClick={() => router.push('/account/cart')}
+                    className="relative text-[#21431E] hover:text-gray-500 cursor-pointer"
+                  >
+                    <FaShoppingCart size={24} color={isScroll ? "#000" : "#fff"} />
+                    {cartCount > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        {cartCount}
+                      </span>
+                    )}
+                  </button>
+                )}
+                <button
+                  onClick={() => handleProfileButton()}
+                  className={`flex gap-2 items-center ${isScroll ? "text-[#21431E]" : "text-white"} hover:text-gray-400 focus:outline-none cursor-pointer`}
+                >
+                  <div className="flex flex-col items-end">
+                    <p style={{ fontSize: "12px" }}>{user.name}</p>
+                    <p style={{ fontSize: "10px" }}>{user.email}</p>
+                  </div>
+                  <FaUserCircle size={30} />
+                </button>
+              </>
             )}
           </div>
         </div>
