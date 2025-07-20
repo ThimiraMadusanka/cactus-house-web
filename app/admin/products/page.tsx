@@ -8,6 +8,9 @@ import { ProductData } from "@/types/product.types";
 import Image from "next/image";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import Swal from "sweetalert2";
+import ProductAddModal from "@/components/modal/ProductAddModal";
+import ProductUpdateModal from "@/components/modal/ProductUpdateModal";
+import ProductViewDetailsModal from "@/components/modal/ProductViewDetailsModal";
 
 const Products = () => {
   const [data, setData] = useState<ProductData[]>([]);
@@ -18,6 +21,10 @@ const Products = () => {
   const [token, setToken] = useState<string>("");
   const [isAddUpdateOrDelete, setIsAddUpdateOrDelete] = useState<boolean>(false);
   const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
+  const [openAddProductModal, setOpenAddProductModal] = useState<boolean>(false);
+  const [openUpdateProductModal, setOpenUpdateProductModal] = useState<boolean>(false);
+  const [openViewDetailsModal, setOpenViewDetailsModal] = useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] = useState<ProductData | null>(null);
 
   const pageSize = 10;
   const router = useRouter();
@@ -205,7 +212,8 @@ const Products = () => {
           <h1 className="font-extrabold page_title">Products</h1>
           <button 
             type="button" 
-            className="lime_btn py-1.5 px-5 text-sm"
+            className="border rounded-md text-white bg-lime-800 hover:bg-lime-600 py-1.5 px-5 text-sm"
+            onClick={() => setOpenAddProductModal(!openAddProductModal)}
           >
             Add Product
           </button>
@@ -256,7 +264,7 @@ const Products = () => {
               ) : (
                 data.map((product, i) => {
                   return (
-                    <tr key={1} className="bg-white transition-all duration-500 hover:bg-gray-50">
+                    <tr key={i} className="bg-white transition-all duration-500 hover:bg-gray-50">
                       <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900 ">{(currentPage - 1) * pageSize + i + 1}</td>
                       <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">
                          <div className="flex items-center gap-5">
@@ -287,7 +295,11 @@ const Products = () => {
                             <div className="py-1 border-b border-gray-300">
                               <button
                                 className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                // onClick={() => router.push(`/admin/orders/${order.id}`)}
+                                onClick={() => {
+                                  setOpenViewDetailsModal(!openViewDetailsModal);
+                                  setOpenDropdownIndex(null);
+                                  setSelectedProduct(product);
+                                }}
                               >
                                 View Details
                               </button>
@@ -295,7 +307,11 @@ const Products = () => {
                             <div className="py-1 border-b border-gray-300">
                               <button
                                 className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                // onClick={() => router.push(`/admin/orders/${order.id}`)}
+                                onClick={() => {
+                                  setOpenUpdateProductModal(!openUpdateProductModal);
+                                  setOpenDropdownIndex(null);
+                                  setSelectedProduct(product);
+                                }}
                               >
                                 Update
                               </button>
@@ -333,6 +349,38 @@ const Products = () => {
           </div>
         </div>
       </div>
+
+      {/* Add product modal */}
+      {openAddProductModal && (
+        <ProductAddModal 
+          token={token}
+          isAddUpdateOrDelete={isAddUpdateOrDelete}
+          setIsAddUpdateOrDelete={setIsAddUpdateOrDelete}
+          openAddProductModal={openAddProductModal}
+          setOpenAddProductModal={setOpenAddProductModal}
+        />
+      )}
+
+      {/* View product details modal */}
+      {openViewDetailsModal && (
+        <ProductViewDetailsModal 
+          selectedProduct={selectedProduct}
+          openViewDetailsModal={openViewDetailsModal}
+          setOpenViewDetailsModal={setOpenViewDetailsModal}
+        />
+      )}
+
+      {/* Update product modal */}
+      {openUpdateProductModal && (
+        <ProductUpdateModal
+          token={token}
+          selectedProduct={selectedProduct}
+          isAddUpdateOrDelete={isAddUpdateOrDelete}
+          setIsAddUpdateOrDelete={setIsAddUpdateOrDelete} 
+          openUpdateProductModal={openUpdateProductModal}
+          setOpenUpdateProductModal={setOpenUpdateProductModal}
+        />
+      )}
     </div>
   )
 }

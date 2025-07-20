@@ -1,4 +1,4 @@
-export type CreateProduct = {
+export type CreateAndUpdateProduct = {
     name: string,
     description: string,
     price: string,
@@ -9,15 +9,35 @@ export type CreateProduct = {
     tags: string[],
 }
 
-export type UpdateProduct = {
+export type CreateProduct = {
     name: string,
     description: string,
-    price: string,
+    price: number,
     quantity: number,
     file_content: string,
     file_name: string,
     content_type: string,
-    tags: string[],
+    tags: string,
+}
+
+export type UpdateProduct = {
+    name: string,
+    description: string,
+    price: number,
+    quantity: number,
+    file_content: string,
+    file_name: string,
+    content_type: string,
+    tags: string,
+}
+
+export type ProductInputValidation = {
+    name: string,
+    description: string,
+    price: string,
+    quantity: string,
+    image: string,
+    tags: string,
 }
 
 export type ProductData = {

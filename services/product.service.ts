@@ -1,5 +1,5 @@
 import axios from "axios";
-import { CreateProduct, UpdateProduct } from "@/types/product.types";
+import { CreateAndUpdateProduct } from "@/types/product.types";
 
 const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
 
@@ -13,7 +13,7 @@ export const getProductById = async (id: number) => {
     return response;
 } 
 
-export const createProduct = async (token: string, request: CreateProduct) => {
+export const createProduct = async (token: string, request: CreateAndUpdateProduct) => {
     const response = await axios.post(`${NEXT_PUBLIC_API_URL}/products`, request,
         {
             headers: { Authorization: `Bearer ${token}` },
@@ -22,7 +22,7 @@ export const createProduct = async (token: string, request: CreateProduct) => {
     return response;
 } 
 
-export const updateProduct = async (token: string, id: number, request: UpdateProduct) => {
+export const updateProduct = async (token: string, id: number, request: CreateAndUpdateProduct) => {
     const response = await axios.put(`${NEXT_PUBLIC_API_URL}/products/${id}`, request,
         {
             headers: { Authorization: `Bearer ${token}` },
