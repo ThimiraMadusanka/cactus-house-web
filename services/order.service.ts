@@ -49,7 +49,7 @@ export const updateOrder = async (token: string, id: number, request: UpdateOrde
 }
 
 export const orderStatusChange = async (token: string, id: number, status: string) => {
-    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/order/${id}?status=${status}`,
+    const response = await axios.patch(`${NEXT_PUBLIC_API_URL}/order/${id}?status=${status}`, {},
         {
             headers: { Authorization: `Bearer ${token}` },
         }
