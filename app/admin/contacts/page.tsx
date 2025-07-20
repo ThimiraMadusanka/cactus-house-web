@@ -8,6 +8,7 @@ import { ContactTableData } from "@/types/contact.types";
 import { FaEye, FaTrash } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 
 const Contacts = () => {
   const [data, setData] = useState<ContactTableData[]>([]);
@@ -17,6 +18,7 @@ const Contacts = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const [isUpdateOrDelete, setIsUpdateOrDelete] = useState<boolean>(false);
   const [token, setToken] = useState<string>("");
+  const [openDropdownIndex, setOpenDropdownIndex] = useState<number | null>(null);
 
   const pageSize = 10;
   const router = useRouter();
@@ -57,6 +59,7 @@ const Contacts = () => {
 
   // read message modal
   const readMessage = (message: string) => {
+    setOpenDropdownIndex(null);
     Swal.fire({
       title: "Message",
       text: message,
@@ -70,6 +73,7 @@ const Contacts = () => {
 
   // handle status change
   const handleStatusChange = (id: number, name: string) => {
+    setOpenDropdownIndex(null);
     Swal.fire({
       title: `Change status for this ${name} contact`,
       input: "select",
@@ -146,6 +150,7 @@ const Contacts = () => {
 
   // remove contact
   const handleRemove = (id: number, name: string) => {
+    setOpenDropdownIndex(null);
     Swal.fire({
       title: "Warning..!",
       text: `Are you sure you want to remove ${name}'s contact?`,
@@ -279,17 +284,42 @@ const Contacts = () => {
                       <td className="p-5 text-center whitespace-nowrap text-sm leading-6 font-medium text-gray-900">{contact.email}</td>
                       <td className={`p-5 text-center whitespace-nowrap text-sm leading-6 font-medium ${handleStatusTextColor(contact.status)}`}>{contact.status}</td>
                       <td className="p-5">
-                        <div className="flex justify-center items-center gap-1">
-                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center cursor-pointer" onClick={() => readMessage(contact.message)}>
-                            <FaEye className="text-green-600" />
-                          </button>
-                          <button className="p-2 rounded-full  group transition-all duration-500  flex item-center cursor-pointer" onClick={() => handleStatusChange(contact.id, contact.name)}>
-                            <FiEdit className="text-blue-700" />
-                          </button>
-                          <button className="p-2 rounded-full  group transition-all duration-500  flex item-center cursor-pointer" onClick={() => handleRemove(contact.id, contact.name)}>
-                            <FaTrash className="text-red-500" />
+                        <div className="flex justify-center items-center">
+                          <button className="p-2  rounded-full  group transition-all duration-500  flex item-center cursor-pointer" onClick={() => setOpenDropdownIndex(openDropdownIndex === i ? null : i)}>
+                            <BiDotsVerticalRounded />
                           </button>
                         </div>
+
+                        {openDropdownIndex === i && (
+                          <div
+                            className="absolute right-20 w-40 rounded-md shadow-lg bg-white ring-1 ring-white ring-opacity-5"
+                          >
+                            <div className="py-1 border-b border-gray-300">
+                              <button
+                                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => readMessage(contact.message)}
+                              >
+                                Read Message
+                              </button>
+                            </div>
+                            <div className="py-1 border-b border-gray-300">
+                              <button
+                                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => handleStatusChange(contact.id, contact.name)}
+                              >
+                                Change Status
+                              </button>
+                            </div>
+                            <div className="py-1 border-b border-gray-300">
+                              <button
+                                className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                onClick={() => handleRemove(contact.id, contact.name)}
+                              >
+                                Remove
+                              </button>
+                            </div>
+                          </div>
+                        )}
                       </td>
                     </tr>
                 )}))}
