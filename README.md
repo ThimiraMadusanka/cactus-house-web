@@ -47,9 +47,23 @@ npm install
 npm run dev
 
 ```
-### 📸 Screenshots
+## 📸 Screenshots
+### 🏠 Home Page  
+![Home Page](https://drive.google.com/uc?export=view&id=1MKHM780D0FtgZerQUFWYAwCcNbetop85)
 
-### 📬 Contact
+### 🌿 Our Plants Page  
+![Our Plants Page](https://drive.google.com/uc?export=view&id=1sJoCZM532X_RFNQC3NUu2zc3X-rDXYtu)
+
+### 📬 Contact Us Page  
+![Contact Us Page](https://drive.google.com/uc?export=view&id=1-UduRNAjKyB3dJPpCYHfWHR2Mec_BtuS)
+
+### 🔐 Sign In Page  
+![Sign In Page](https://drive.google.com/uc?export=view&id=1u2mR4sxzbyXMWHeh91x6BkE2oeF5F0oY)
+
+### 📊 Dashboard Page  
+![Dashboard Page](https://drive.google.com/uc?export=view&id=1CZWCo3pqvZBYBsTWuLbFdc3RZslkidOD)
+
+## 📬 Contact Me
 
 If you have any questions or feedback, feel free to reach out:
 
