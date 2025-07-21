@@ -45,3 +45,14 @@ git clone https://github.com/ThimiraMadusanka/cactus-house-web.git
 cd cactus-house-web
 npm install
 npm run dev
+
+```
+### 📸 Screenshots
+
+### 📬 Contact
+
+If you have any questions or feedback, feel free to reach out:
+
+- LinkedIn: [Thimira Madusanka](https://www.linkedin.com/in/thimira-madusanka/)
+- Email: pdt.madusanka@gmail.com
+
