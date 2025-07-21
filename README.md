@@ -2,6 +2,8 @@
 
 This is the **frontend** of the "Cactus House" full-stack web application, built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **Axios**. It allows users to explore and purchase cactus plants, interact with a chatbot, and manage their accounts through a full-featured user and admin dashboard.
 
+👉 Backend Repo: [Cactus House – Backend](https://github.com/ThimiraMadusanka/cactus-house-api.git)
+
 ## 🚀 Features
 
 ### 🔓 Public Pages
