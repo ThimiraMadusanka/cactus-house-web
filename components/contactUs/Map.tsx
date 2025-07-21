@@ -23,10 +23,10 @@ const Map = () => {
             <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
                 {/* Email */}
                 <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>
-                <a className="leading-relaxed">cactusHouse@email.com</a>
+                <a className="leading-relaxed">cactusHouse@gmail.com</a>
                 {/* Contact Number */}
                 <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">PHONE</h2>
-                <p className="leading-relaxed">+94-76-4578560</p>
+                <p className="leading-relaxed">+94 (76) 457-8560</p>
             </div>
         </div>
     </div>

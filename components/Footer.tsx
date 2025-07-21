@@ -60,35 +60,22 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          {/* Newsletter Section */}
-          <div className="xl:col-span-1 flex flex-col xl:items-start items-center">
-            <h3 className="text-md font-semibold leading-6 text-white">Subscribe to our Newsletter</h3>
-            <p className="mt-2 text-sm leading-6 text-white text-center xl:text-left">
-              We will inform you about promotions and exclusive offers as well as new Cactus plants.
-            </p>
-            <form className="mt-6 flex md:flex-row flex-col gap-4">
-              <input 
-                type="email" 
-                name="email" 
-                id="email-address" 
-                required 
-                className="w-full min-w-0 border appearance-none rounded-md border-gray-300 bg-white px-2 text-base leading-7 text-gray-900 placeholder-gray-400 shadow-sm focus:border-lime-700 focus:ring-lime-700 sm:w-64 sm:text-sm sm:leading-6 xl:w-full" 
-                placeholder="E-Mail Address" 
-              />
-              <button 
-                type="button" 
-                className="lime_btn py-1.5 px-5 text-sm"
-              >
-                Subscribe
-              </button>
-            </form>
+          {/* Contact */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold text-white">Contact Us</h3>
+            <address className="not-italic text-white">
+              <p>No 07, R. A. De Mel Mawatha, </p>
+              <p>Colombo 10, Sri Lanka.</p>
+              <p className="mt-2">Email: <a href="mailto:info@company.com" className="hover:text-white transition">cactusHouse@gmail.com</a></p>
+              <p>Phone: <a href="tel:+11234567890" className="hover:text-white transition">+94 (76) 457-8560</a></p>
+            </address>
           </div>
         </div>
       </div>
       {/* Copy Right Section */}
       <div className="relative flex justify-center">
         <div className="border-t w-10/12 border-gray-200 py-8">
-          <p className="text-base text-white text-center">© 2024 Cactus House, Inc. All rights reserved.</p>
+          <p className="text-base text-white text-center">© 2024 Cactus House, Inc. All rights reserved. Developed by Thimira Madusanka</p>
         </div>
       </div>
     </footer>
