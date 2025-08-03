@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CreateOrUpdateChatResource, Message } from "@/types/chat.types";
 
-const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getChatResource = async (token: string, id: number) => {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/chat/resource/${id}`,

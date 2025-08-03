@@ -1,7 +1,7 @@
 import { AddToCart } from "@/types/cart.types";
 import axios from "axios";
 
-const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getAllCartItemsByUserId = async (token: string, user_id: number) => {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/cart/all?user_id=${user_id}`,

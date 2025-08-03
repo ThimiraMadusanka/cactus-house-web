@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CreateOrder, UpdateOrder } from "@/types/order.types";
 
-const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getOrders = async (token: string, page: number, size: number, status?: string) => {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/order?page=${page}&size=${size}${status ? "&status=" + status : ""}`,

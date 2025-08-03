@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CreateAndUpdateProduct } from "@/types/product.types";
 
-const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getProducts = async (page: number, size: number, status?: string, name?: string, tag?: string, price?: string) => {
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/products?page=${page}&size=${size}${status ? "&status=" + status : ""}${tag ? "&tag=" + tag : ""}${name ? "&name=" + name : ""}${price ? "&price=" + price : ""}`);

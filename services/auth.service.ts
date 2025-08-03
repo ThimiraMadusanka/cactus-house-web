@@ -2,7 +2,7 @@
 import axios from "axios";
 import { ForgetPassword, ResetPassword, SignIn, SignUp } from "@/types/auth.types";
 
-const NEXT_PUBLIC_API_URL = "http://localhost:5000/v1";
+const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const signIn = async (request: SignIn) => {
     const response = await axios.post(`${NEXT_PUBLIC_API_URL}/sign_in`, request);
