@@ -67,3 +67,6 @@ jobs:
       working-directory: ./kubernetes
       run: |
         kubectl apply -f deployment.yaml
+    
+    - name: Restart Kubernetes Deployment
+      run: kubectl rollout restart deployment/cactus-house-frontend
