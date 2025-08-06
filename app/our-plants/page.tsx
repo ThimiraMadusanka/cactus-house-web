@@ -50,7 +50,7 @@ const OurPlants = () => {
       {/* Banner Section */}
       <Banner 
         topBanner
-        bannerTitle="Plants"
+        bannerTitle="Our Plants"
         bannerSubTitle="Choose your favorite Cactus plant in our store."
       />
       <section className="pt-14 pb-20 mx-auto max-w-7xl justify-items-center justify-center">

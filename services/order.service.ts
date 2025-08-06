@@ -4,8 +4,6 @@ import { CreateOrder, UpdateOrder } from "@/types/order.types";
 const NEXT_PUBLIC_API_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
 export const getOrders = async (token: string, page: number, size: number, status?: string) => {
-    console.log("ENV", process.env.NEXT_PUBLIC_BACKEND_URL);
-
     const response = await axios.get(`${NEXT_PUBLIC_API_URL}/order?page=${page}&size=${size}${status ? "&status=" + status : ""}`,
         {
             headers: { Authorization: `Bearer ${token}` },
