@@ -34,7 +34,6 @@ jobs:
                 ${{ secrets.DOCKERHUB_USERNAME }}/cactus_house_web:latest
           build-args: |
             NEXT_PUBLIC_BACKEND_URL=${{ secrets.NEXT_PUBLIC_BACKEND_URL }}
-  
   deploy:
     name: Deploy to AWS EKS
     runs-on: ubuntu-latest
