@@ -3,13 +3,12 @@ kind: Service
 metadata:
   name: cactus-house-frontend
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: cactus-house-frontend
   ports:
   - port: 3030
     targetPort: 3000
-    nodePort: 30080
 ---
 apiVersion: apps/v1
 kind: Deployment

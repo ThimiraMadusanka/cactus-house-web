@@ -38,6 +38,7 @@ jobs:
   deploy:
     name: Deploy to AWS EKS
     runs-on: ubuntu-latest
+    needs: dev-build
 
     steps:
     - name: Checkout Code
