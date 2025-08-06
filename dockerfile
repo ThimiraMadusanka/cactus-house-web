@@ -6,9 +6,7 @@ COPY package*.json ./
 
 RUN npm install
 
-# Accept build-time environment variable
-ARG NEXT_PUBLIC_BACKEND_URL
-ENV NEXT_PUBLIC_BACKEND_URL=$NEXT_PUBLIC_BACKEND_URL
+COPY .env.production .env.production
 
 COPY . .
 
