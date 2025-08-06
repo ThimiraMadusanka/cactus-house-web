@@ -62,4 +62,4 @@ jobs:
     - name: Deploy to EKS
       working-directory: ./kubernetes
       run: |
-        kubectl apply -f deployemnt.yaml
+        kubectl apply -f deployment.yaml
